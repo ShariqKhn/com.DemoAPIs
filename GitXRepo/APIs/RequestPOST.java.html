@@ -1,0 +1,57 @@
+<html>
+<head>
+<title>RequestPOST.java</title>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8">
+<style type="text/css">
+.s0 { color: #0033b3;}
+.s1 { color: #080808;}
+.s2 { color: #067d17;}
+.s3 { color: #1750eb;}
+</style>
+</head>
+<body bgcolor="#ffffff">
+<table CELLSPACING=0 CELLPADDING=5 COLS=1 WIDTH="100%" BGCOLOR="#c0c0c0" >
+<tr><td><center>
+<font face="Arial, Helvetica" color="#000000">
+RequestPOST.java</font>
+</center></td></tr></table>
+<pre><span class="s0">package </span><span class="s1">APIs;</span>
+
+<span class="s0">import </span><span class="s1">io.restassured.builder.RequestSpecBuilder;</span>
+<span class="s0">import </span><span class="s1">io.restassured.builder.ResponseSpecBuilder;</span>
+<span class="s0">import </span><span class="s1">io.restassured.http.ContentType;</span>
+<span class="s0">import </span><span class="s1">io.restassured.path.json.JsonPath;</span>
+<span class="s0">import </span><span class="s1">io.restassured.response.Response;</span>
+<span class="s0">import </span><span class="s1">io.restassured.specification.RequestSpecification;</span>
+<span class="s0">import </span><span class="s1">io.restassured.specification.ResponseSpecification;</span>
+<span class="s0">import </span><span class="s1">org.testng.annotations.Test;</span>
+
+<span class="s0">import static </span><span class="s1">io.restassured.RestAssured.given;</span>
+
+<span class="s0">public class </span><span class="s1">RequestPOST</span>
+<span class="s1">{</span>
+    <span class="s1">@Test</span>
+    <span class="s0">public void </span><span class="s1">ReqPOST()</span>
+    <span class="s1">{</span>
+        <span class="s1">RequestSpecification requestSpecification= </span><span class="s0">new </span><span class="s1">RequestSpecBuilder().setBaseUri(</span><span class="s2">&quot;https://reqres.in/&quot;</span><span class="s1">).setContentType(ContentType.JSON).build();</span>
+
+        <span class="s1">ResponseSpecification responseSpecification=</span><span class="s0">new </span><span class="s1">ResponseSpecBuilder().expectStatusCode(</span><span class="s3">201</span><span class="s1">).expectContentType(ContentType.JSON).build();</span>
+
+     <span class="s1">RequestSpecification request=   given().spec(requestSpecification).body(Payload.CreateUser());</span>
+
+        <span class="s1">Response response=request.when().post(</span><span class="s2">&quot;&quot;</span><span class="s1">).then().spec(responseSpecification).extract().response();</span>
+
+        <span class="s1">String res=response.asString();</span>
+        <span class="s1">System.out.println(res);</span>
+
+        <span class="s1">JsonPath jsonPath=</span><span class="s0">new </span><span class="s1">JsonPath(res);</span>
+
+
+
+    <span class="s1">}</span>
+
+
+<span class="s1">}</span>
+</pre>
+</body>
+</html>
